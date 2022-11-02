@@ -4,16 +4,20 @@ import Login from './components/auth/Login'
 import NuevaCuenta from './components/auth/NuevaCuenta'
 import Proyectos from './components/proyectos/Proyectos'
 
+import ProyectoState from './context/proyectos/proyectoState';
+
 function App() {
   return (
-    <Router>
-       <Routes>
-        <Route exact path = '/' element={<Login />} />
-        <Route exact path = '/nueva-cuenta' element={<NuevaCuenta />} />
-        <Route exact path = '/proyectos' element={<Proyectos/>} />
+    <ProyectoState>
+      <Router>
+        <Routes>
+          <Route exact path = '/' element={<Login />} />
+          <Route exact path = '/nueva-cuenta' element={<NuevaCuenta />} />
+          <Route exact path = '/proyectos' element={<Proyectos/>} />
 
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </ProyectoState>
   );
 }
 

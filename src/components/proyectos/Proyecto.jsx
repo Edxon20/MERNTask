@@ -13,15 +13,15 @@ const Proyecto = ({proyecto}) => {
             //aca los 
             //values
     const tareasContext = useContext(tareaContex);
-    
+    const {obtenerTareas} = tareasContext;
 
 
     // Funcion para agregar el proyecto actual
     const seleccionarProyecto = id =>{
 
         proyectoActual(id); // Fijar un proyecto actual
-
-
+        obtenerTareas(id); //Filtra las tareas cuando se de click
+ 
     }
 
 

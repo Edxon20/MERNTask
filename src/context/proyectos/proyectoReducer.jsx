@@ -1,6 +1,8 @@
 import { FORMULARIO_PROYECTO } from '../../types'
 import { OBTENER_PROYECTOS } from '../../types'
 import { AGREGAR_PROYECTO } from '../../types'
+import { VALIDAR_FORMULARIO } from '../../types'
+import {PROYECTO_ACTUAL} from '../../types'
 
 export default (state,action) =>{
     switch(action.type) {
@@ -21,10 +23,21 @@ export default (state,action) =>{
                 //Recordar no olvidar dejar los state que ya esten establecidos.
                 ...state,
                 proyectos: [...state.proyectos, action.payload],
-                formulario: false
+                formulario: false,
+                errorformulario: false
 
             }
-        
+        case VALIDAR_FORMULARIO:
+            return{
+                ...state,
+                errorformulario: true
+            }
+        case PROYECTO_ACTUAL:
+            return{
+                ...state,
+                //El action.payload es lo que pasamos por parametro en la funcion anterior
+                proyecto: state.proyectos.filter(proyecto => proyecto.id === action.payload)
+            }
 
         default:
             return state;

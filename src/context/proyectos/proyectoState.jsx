@@ -1,10 +1,15 @@
 import React,{useReducer} from 'react';
 
+import { v4 } from 'uuid';
+
 import proyectoContext from './proyectoContext';
 import proyectoReducer from './proyectoReducer';
+
 import { FORMULARIO_PROYECTO,
-    OBTENER_PROYECTOS } 
-    from '../../types'
+         OBTENER_PROYECTOS, 
+         AGREGAR_PROYECTO,
+         VALIDAR_FORMULARIO
+        }from '../../types'
 
 
 
@@ -25,6 +30,7 @@ const ProyectoState = props => {
 
     // Dispatch para ejecutar las acciones
     // Distructuring
+    //Clave para trabajar con el reducer
      const [state, dispatch] = useReducer(proyectoReducer,initialState)
 
     //Serie de funnciones para el CRUD
@@ -44,6 +50,20 @@ const ProyectoState = props => {
         })
     }
 
+    //Agregar nuevo proyecto
+    const agregarProyecto = proyecto =>{
+
+        proyecto.id = v4();
+
+        // Insertar el proyecto en el state
+
+        dispatch({
+            type: AGREGAR_PROYECTO,
+            payload: proyecto
+        })
+
+    }
+
     return(
         <proyectoContext.Provider
             value={{
@@ -51,7 +71,8 @@ const ProyectoState = props => {
                 proyectos : state.proyectos,
                 formulario: state.formulario,
                 mostrarFormulario,
-                obtenerProyectos
+                obtenerProyectos,
+                agregarProyecto
 
             }}
         >

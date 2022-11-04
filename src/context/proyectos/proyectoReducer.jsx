@@ -1,5 +1,6 @@
 import { FORMULARIO_PROYECTO } from '../../types'
 import { OBTENER_PROYECTOS } from '../../types'
+import { AGREGAR_PROYECTO } from '../../types'
 
 export default (state,action) =>{
     switch(action.type) {
@@ -15,6 +16,15 @@ export default (state,action) =>{
                 ...state,
                 proyectos: action.payload
             }
+        case AGREGAR_PROYECTO:
+            return{
+                //Recordar no olvidar dejar los state que ya esten establecidos.
+                ...state,
+                proyectos: [...state.proyectos, action.payload],
+                formulario: false
+
+            }
+        
 
         default:
             return state;

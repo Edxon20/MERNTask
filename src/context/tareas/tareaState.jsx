@@ -4,7 +4,8 @@ import TareaContext from './tareaContex'
 import TareaReducer from './tareaReducer' //tiene un export default
 
 import { TAREAS_PROYECTO,
-         AGREGAR_TAREA
+         AGREGAR_TAREA,
+         VALIDAR_TAREA
 
 } from "../../types";
 const TareaState = props => {
@@ -58,15 +59,25 @@ const TareaState = props => {
         })
     }
 
+    // Valida y muestra un error en caso que sea necesario
+
+    const validarTarea = () =>{
+        dispatch({
+            type: VALIDAR_TAREA
+        })
+    }
+
     return (
 
         <TareaContext.Provider
             value={{
                 tareas: state.tareas,
-                tareasproyecto: state.tareasproyecto,                
+                tareasproyecto: state.tareasproyecto,      
+                errortarea: state.errortarea,          
                 
                 obtenerTareas,
-                agregarTarea
+                agregarTarea,
+                validarTarea
             }}
         >
             {props.children}

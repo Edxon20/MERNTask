@@ -9,7 +9,7 @@ const FormTarea = () => {
     const { proyecto } = proyectosContext;
 
     const tareasContext = useContext(tareaContex);
-    const {agregarTarea} = tareasContext;
+    const {errortarea , agregarTarea, validarTarea, obtenerTareas} = tareasContext;
 
 
 
@@ -30,17 +30,21 @@ const FormTarea = () => {
 
     // Leer los valores del formulacion
 
-    const handleChange = e =>{
-        guardarTarea(
+    const handleChange = e => {
+        guardarTarea({
             ...tarea,
-            [e.target.name] = e.tarea.value
-        )
+            [e.target.name] : e.target.value
+        })
     }
 
     const onSubmit = e =>{
         e.preventDefault();
 
         //Validar
+        if(nombre.trim() === ''){
+            validarTarea();
+            return;
+        }
 
         //Pasar la validacion
 
@@ -49,7 +53,13 @@ const FormTarea = () => {
         tarea.estado = false;
         agregarTarea(tarea);
 
+        // Obtener y filtrar las tareas del proyecto actual
+        obtenerTareas(proyectoActual.id);
+
         //Reiniciar el form
+        guardarTarea({
+            nombre: ' '
+        })
 
     }
 
@@ -67,7 +77,7 @@ const FormTarea = () => {
                         className='input-text'
                         placeholder='Nombre Tarea...'
                         name='nombre'
-                        value={tarea}
+                        value={nombre}
                         onChange={handleChange}
                     >
                     </input>
@@ -86,6 +96,8 @@ const FormTarea = () => {
                 </div>
 
             </form>
+
+            {errortarea ? <p className='mensaje error'> El nombre de la tarea es obligatorio</p> : null}
        </div>
 
     );

@@ -3,6 +3,7 @@ import { OBTENER_PROYECTOS } from '../../types'
 import { AGREGAR_PROYECTO } from '../../types'
 import { VALIDAR_FORMULARIO } from '../../types'
 import {PROYECTO_ACTUAL} from '../../types'
+import {ELIMINAR_PROYECTO} from '../../types'
 
 export default (state,action) =>{
     switch(action.type) {
@@ -38,6 +39,14 @@ export default (state,action) =>{
                 //El action.payload es lo que pasamos por parametro en la funcion anterior
                 proyecto: state.proyectos.filter(proyecto => proyecto.id === action.payload)
             }
+
+        case ELIMINAR_PROYECTO:
+            return{
+                ...state,
+                proyectos: state.proyectos.filter(proyecto => proyecto.id !== action.payload),
+                proyecto: null
+            }
+        
 
         default:
             return state;

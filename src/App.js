@@ -5,10 +5,12 @@ import NuevaCuenta from './components/auth/NuevaCuenta'
 import Proyectos from './components/proyectos/Proyectos'
 
 import ProyectoState from './context/proyectos/proyectoState';
+import TareaState from './context/tareas/tareaState';
 
 function App() {
   return (
     <ProyectoState>
+      <TareaState>
       <Router>
         <Routes>
           <Route exact path = '/' element={<Login />} />
@@ -17,6 +19,7 @@ function App() {
 
         </Routes>
       </Router>
+      </TareaState>
     </ProyectoState>
   );
 }

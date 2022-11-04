@@ -5,7 +5,7 @@ import proyectoContext from '../../context/proyectos/proyectoContext';
 const ListadoTareas = () => {
 
     const proyectosContext = useContext(proyectoContext);
-    const { proyecto } = proyectosContext;
+    const { proyecto, eliminarProyecto } = proyectosContext;
 
     //Si no hay proyecto seleccionado
     if(!proyecto) return <h2>Selecciona un proyecto</h2>;
@@ -15,13 +15,15 @@ const ListadoTareas = () => {
 
     const [proyectoActual] = proyecto;
 
-    const tareasProyecto = [
-        { nombre: 'Elegir Plataforma', estado: true},
-        { nombre: 'Elegir Colores', estado: false},
-        { nombre: 'Elegir Plataforma de pago', estado: false},
-        { nombre: 'Elegir Hosting', estado: true}
-    ];
+    const tareasProyecto = [];
 
+    //Elimina un proyecto
+
+    const onClickEliminar = () => {
+
+        eliminarProyecto(proyectoActual.id);
+
+     } 
 
     return (
         
@@ -42,6 +44,7 @@ const ListadoTareas = () => {
             <button
                 type='button'
                 className='btn btn-eliminar'
+                onClick={onClickEliminar}
             >
                 Eliminar Proyecto &times;
             </button>

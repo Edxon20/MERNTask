@@ -3,7 +3,10 @@ import {
     TAREAS_PROYECTO,
     AGREGAR_TAREA,
     VALIDAR_TAREA,
-    ELIMINAR_TAREA
+    ELIMINAR_TAREA,
+    ESTADO_TAREA,
+    TAREA_ACTUAL,
+    ACTUALIZAR_TAREA
 
 } from "../../types";
 
@@ -24,7 +27,7 @@ export default (state,action) =>{
                 ...state,
                 //Estariamos creando un arreglo nuevo de tareas
                 //Mas la nueva
-                tareas : [state.tarea,action.payload],
+                tareas : [...state.tareas,action.payload],
                 errortarea: false
             }
 
@@ -39,7 +42,24 @@ export default (state,action) =>{
                 //Agregaremos todas las tareas excepto la que tenga el mismo ID
                 tareas: state.tareas.filter(tarea => tarea.id !== action.payload)
             }    
-        
+        case ESTADO_TAREA:
+            return{
+                ...state,
+                tareas: state.tareasproyecto.map(tarea => tarea.id === action.payload.id ? action.payload : tarea)
+            }
+        case TAREA_ACTUAL:
+            return{
+                ...state,
+                tareaseleccionada: action.payload
+            }
+        case ACTUALIZAR_TAREA:            
+                return {
+                    ...state,
+                    //Recorre todo, si es que el ID de tarea es igual a la tarea que pasamos actualizamos la tarea... sino 
+                    //seguimos pasando los otros que ya estabamos pasando
+                    tareas: state.tareasproyecto.map(tarea => tarea.id === action.payload.id ? action.payload : tarea)
+                }
+            
         default:
             return state;
     }

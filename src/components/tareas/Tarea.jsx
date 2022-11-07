@@ -6,10 +6,10 @@ import tareaContex from '../../context/tareas/tareaContex';
 const Tarea = ({tarea}) => {
 
     const tareasContext = useContext(tareaContex);
-    const { eliminarTarea, obtenerTareas } = tareasContext;
+    const { eliminarTarea, obtenerTareas,cambiarEstadoTarea,guardarTareaActual } = tareasContext;
 
     const proyectosContext = useContext(proyectoContext);
-    const { proyecto } = proyectosContext;
+    const { proyecto  } = proyectosContext;
 
     
 
@@ -17,6 +17,22 @@ const Tarea = ({tarea}) => {
     const tareaEliminar = id =>{
         eliminarTarea(id);
         obtenerTareas(proyecto[0].id);
+    }
+
+    // funcion que modifica el estado de las tareas
+    const cambiarEstado = tarea =>{
+        if(tarea.estado){
+            tarea.estado = false;
+        }else{
+            tarea.estado = true;
+        }
+        cambiarEstadoTarea(tarea);
+    }
+
+    //Agrega una tarea actual cuando el usuario cuando el usuario quiere editarla
+
+    const seleccionarTarea = tarea =>{
+        guardarTareaActual(tarea);
     }
 
     return (
@@ -31,6 +47,7 @@ const Tarea = ({tarea}) => {
                         <button
                             type='button'
                             className='completo'
+                            onClick={ () =>cambiarEstado(tarea) }
                         >
                             Completo
                         </button>
@@ -41,6 +58,7 @@ const Tarea = ({tarea}) => {
                         <button
                             type='button'
                             className='incompleto'
+                            onClick={() =>cambiarEstado(tarea)}
                         >
                             Incompleto
                         </button>
@@ -53,6 +71,7 @@ const Tarea = ({tarea}) => {
                     <button
                         type='button'
                         className='btn btn-primario'
+                        onClick={() => seleccionarTarea(tarea)}
                     >
                         Editar
                     </button>

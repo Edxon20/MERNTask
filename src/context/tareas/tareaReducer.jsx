@@ -2,7 +2,8 @@
 import { 
     TAREAS_PROYECTO,
     AGREGAR_TAREA,
-    VALIDAR_TAREA
+    VALIDAR_TAREA,
+    ELIMINAR_TAREA
 
 } from "../../types";
 
@@ -32,6 +33,13 @@ export default (state,action) =>{
                 ...state,
                 errortarea: true
             }
+        case ELIMINAR_TAREA:
+            return{
+                ...state,
+                //Agregaremos todas las tareas excepto la que tenga el mismo ID
+                tareas: state.tareas.filter(tarea => tarea.id !== action.payload)
+            }    
+        
         default:
             return state;
     }

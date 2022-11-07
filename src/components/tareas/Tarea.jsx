@@ -1,7 +1,23 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import proyectoContext from '../../context/proyectos/proyectoContext';
+import tareaContex from '../../context/tareas/tareaContex';
+
 
 const Tarea = ({tarea}) => {
 
+    const tareasContext = useContext(tareaContex);
+    const { eliminarTarea, obtenerTareas } = tareasContext;
+
+    const proyectosContext = useContext(proyectoContext);
+    const { proyecto } = proyectosContext;
+
+    
+
+    // Funcion que se ejecuta cuando el usuario presiona el boton de eleiminar tarea
+    const tareaEliminar = id =>{
+        eliminarTarea(id);
+        obtenerTareas(proyecto[0].id);
+    }
 
     return (
 
@@ -43,7 +59,8 @@ const Tarea = ({tarea}) => {
 
                     <button
                        type='button'
-                       className='btn btn-secundario'     
+                       className='btn btn-secundario'    
+                       onClick={() => tareaEliminar(tarea.id)} 
                     >
                         Eliminar
                     </button>

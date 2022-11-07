@@ -8,6 +8,7 @@ const FormTarea = () => {
     const proyectosContext = useContext(proyectoContext);
     const { proyecto } = proyectosContext;
 
+    // obtener la funcion del context de tarea
     const tareasContext = useContext(tareaContex);
     const {errortarea , agregarTarea, validarTarea, obtenerTareas} = tareasContext;
 

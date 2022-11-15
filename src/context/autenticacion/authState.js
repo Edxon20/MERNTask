@@ -25,13 +25,15 @@ import { REGISTRO_EXITOSO,
 
 
         return(
-            <authContext.Provider>
-                value = {{
-                    token: state.token,
-                    autenticado: state.autenticado,
-                    usuario: state.usuario,
-                    mensaje: state.mensaje
-                }}
+            <authContext.Provider
+            value = {{
+                token: state.token,
+                autenticado: state.autenticado,
+                usuario: state.usuario,
+                mensaje: state.mensaje
+            }}
+            >
+               
                 {props.children}
             </authContext.Provider>
         )

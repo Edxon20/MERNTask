@@ -10,6 +10,9 @@ import AlertaState from './context/alertas/alertaState';
 import AuthState from "./context/autenticacion/authState";
 
 function App() {
+  
+  console.log(process.env.REACT_APP_BACKEND_URL);
+  
   return (
     <ProyectoState>
       <TareaState>
@@ -20,7 +23,6 @@ function App() {
                 <Route exact path='/' element={<Login />} />
                 <Route exact path='/nueva-cuenta' element={<NuevaCuenta />} />
                 <Route exact path='/proyectos' element={<Proyectos />} />
-
               </Routes>
             </Router>
           </AuthState>

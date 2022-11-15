@@ -73,6 +73,7 @@ const FormTarea = () => {
             actualizarTarea(tarea);
 
             //Eliminar tarea seleccionada del state
+            limpiarTarea();
         }
         //Pasar la validacion   
         // Obtener y filtrar las tareas del proyecto actual

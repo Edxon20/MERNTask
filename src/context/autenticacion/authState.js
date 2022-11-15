@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 import authContext from './authContext';
 import authReducer from './authReducer';
 
+import clienteAxios from '../../config/axios';
+
 import { REGISTRO_EXITOSO, 
     REGISTRO_ERROR, 
     OBTENER_USUARIO, 
@@ -23,6 +25,23 @@ import { REGISTRO_EXITOSO,
 
         // FUNCIONES
 
+        const registrarUsuario = async datos => {
+
+            try {
+                const respuesta = await clienteAxios.post('/api/usuarios', datos);
+                console.log(respuesta)
+                
+                dispatch({
+                    type: REGISTRO_EXITOSO
+                })
+                
+            } catch (error) {
+                console.log(error);
+                dispatch({
+                    type:REGISTRO_ERROR
+                })                
+            }
+        }
 
         return(
             <authContext.Provider

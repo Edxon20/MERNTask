@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import AuthContext from '../../context/autenticacion/authContext';
-
+import Navigate from 'react-dom'
 const Barra = () => {
 
     //Extraer la informacion de autenticacion
@@ -11,7 +11,9 @@ const Barra = () => {
 
         //busca token en el Header e intenta logearce en el sistema
         usuarioAutenticado();
-
+        if(!usuario){
+            <Navigate to ="/" />
+        }
     }, [])
 
 

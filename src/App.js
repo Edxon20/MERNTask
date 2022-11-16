@@ -32,7 +32,8 @@ function App() {
               <Routes>
                 <Route exact path='/' element={<Login />} />
                 <Route exact path='/nueva-cuenta' element={<NuevaCuenta />} />
-                <RutaPrivada exact path='/proyectos' element={<Proyectos />} />
+                
+                <Route path='/proyectos' element={<Proyectos />} />
               </Routes>
             </Router>
           </AuthState>

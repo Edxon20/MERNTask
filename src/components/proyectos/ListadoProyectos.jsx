@@ -29,8 +29,8 @@ const ListadoProyectos = () => {
                 {proyectos.map(proyecto => (
 
                     <CSSTransition
-
-                        key={proyecto.id}
+                                    //En mondoDB se usa el ._ par el id
+                        key={proyecto._id}
                         timeout={200}
                         classNames='proyecto'
 

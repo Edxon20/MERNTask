@@ -1,6 +1,6 @@
 import React,{useReducer} from 'react';
 
-import { v4 } from 'uuid';
+//import { v4 } from 'uuid';
 
 import proyectoContext from './proyectoContext';
 import proyectoReducer from './proyectoReducer';
@@ -13,17 +13,12 @@ import { FORMULARIO_PROYECTO,
          ELIMINAR_PROYECTO
         }from '../../types'
 
+//PARA INTERACTUAR CON LA BASE DE DATOS
 
+import clienteAxios from '../../config/axios';
 
 //Esto debe ir en mayuscula
 const ProyectoState = props => {
-
-    const proyectos = [
-        { id: 1, nombre: 'Tienda Virtual' },
-        { id: 2, nombre: 'Intranet' },
-        { id: 3, nombre: 'Design website' }
-    
-    ]
 
     const initialState = {
         proyectos: [],
@@ -47,16 +42,42 @@ const ProyectoState = props => {
 
     // obtener los proyectos
     //Por lo general lo que tome como parametro es el payload
-    const obtenerProyectos = () =>{
-        dispatch({
-            type: OBTENER_PROYECTOS,
-            payload: proyectos
-        })
+    const obtenerProyectos = async () =>{
+        
+        try {
+
+            const resultado = await clienteAxios.get('/api/proyectos');
+            
+            dispatch({
+                type: OBTENER_PROYECTOS,
+                            //Tener cuidado de revisar con un console log que objeto se envia para asi poder hacerlo bien
+                payload: resultado.data.proyectos
+            })
+        } catch (error) {
+            console.log(error)            
+        }
+        
+
     }
 
     //Agregar nuevo proyecto
-    const agregarProyecto = proyecto =>{
-        proyecto.id = v4();
+                            //El async es porque vamos a interactuar con la base de datos
+    const agregarProyecto = async proyecto =>{
+
+        try {
+            const resultado = await clienteAxios.post('/api/proyectos', proyecto)
+            
+            dispatch({
+                type: AGREGAR_PROYECTO,
+                payload: resultado.data
+            })
+
+        } catch (error) 
+        {
+            console.log(error);            
+        }
+
+       // proyecto.id = v4();
 
         // Insertar el proyecto en el state
 

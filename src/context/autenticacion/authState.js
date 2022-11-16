@@ -3,6 +3,7 @@ import authContext from './authContext';
 import authReducer from './authReducer';
 
 import clienteAxios from '../../config/axios';
+import tokenAuth from '../../config/token'
 
 import { REGISTRO_EXITOSO, 
     REGISTRO_ERROR, 
@@ -33,6 +34,9 @@ import { REGISTRO_EXITOSO,
                     type: REGISTRO_EXITOSO,
                     payload: respuesta.data
                 })
+
+                //Obtener el usuario
+                usuarioAutenticado();
                 
             } catch (error) {
 
@@ -48,6 +52,59 @@ import { REGISTRO_EXITOSO,
             }
         }
 
+        // Retorna el usuario autenticado.
+        const usuarioAutenticado = async () =>{
+            const token = localStorage.getItem('token');
+            if(token){
+                //TODO FUNCION para enviar el token por header
+                tokenAuth(token);
+            }
+
+            try {
+                const respuesta = await clienteAxios.get('/api/auth');
+                //console.log(respuesta);
+                dispatch({
+                    type: OBTENER_USUARIO,
+                    payload: respuesta.data.usuario
+                });
+            } catch (error) {
+                console.log(error);
+                dispatch({
+                    type: LOGIN_ERROR,
+
+                })                
+            }
+
+        }
+
+        // Cuando el usuario inicia sesion
+        const iniciarSesion = async datos => {
+
+            try {                  
+                const respuesta = await clienteAxios.post('/api/auth',datos);
+                dispatch({
+                    type: LOGIN_EXITOSO,
+                    //AQUI VIAJA EL TOKEN QUE ENVIAMOS BACKEND
+                    payload: respuesta.data
+                })
+
+
+                //Obtener el usuario
+                usuarioAutenticado();                
+            } catch (error) {   
+                const alerta = {
+                    msg: error.response.data.msg,
+                    categoria: 'alerta-error'
+                }
+
+                dispatch({
+                    type:LOGIN_ERROR,
+                    payload: alerta
+                })                  
+            }
+
+        }
+
         return(
             <authContext.Provider
             value = {{
@@ -56,7 +113,9 @@ import { REGISTRO_EXITOSO,
                 usuario: state.usuario,
                 mensaje: state.mensaje,
 
-                registrarUsuario
+                registrarUsuario,
+                iniciarSesion,
+                usuarioAutenticado
             }}
             >
                

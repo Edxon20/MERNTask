@@ -2,7 +2,6 @@ import React, {useState, useContext, useEffect} from 'react'
 import { Link , useNavigate } from 'react-router-dom'
 import AlertaContext from '../../context/alertas/alertaContext';
 import AuthContext from '../../context/autenticacion/authContext';
-import { withRouter } from "react-router";
 
 const NuevaCuenta = (props) => {
     const navigate = useNavigate();

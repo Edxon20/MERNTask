@@ -19,7 +19,8 @@ import { REGISTRO_EXITOSO,
             token: localStorage.getItem('token'),
             autenticado: null,
             usuario: null,
-            mensaje: null
+            mensaje: null,
+            cargando: true
         }
 
         const [ state, dispatch] = useReducer(authReducer, initialState);
@@ -104,6 +105,13 @@ import { REGISTRO_EXITOSO,
             }
 
         }
+        
+        const cerrarSesion = () => {
+            dispatch({
+                type: CERRAR_SESION,
+
+            })
+        }
 
         return(
             <authContext.Provider
@@ -112,10 +120,12 @@ import { REGISTRO_EXITOSO,
                 autenticado: state.autenticado,
                 usuario: state.usuario,
                 mensaje: state.mensaje,
+                cargando: state.cargando,
 
                 registrarUsuario,
                 iniciarSesion,
-                usuarioAutenticado
+                usuarioAutenticado,
+                cerrarSesion
             }}
             >
                

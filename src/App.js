@@ -9,6 +9,7 @@ import TareaState from './context/tareas/tareaState';
 import AlertaState from './context/alertas/alertaState';
 import AuthState from "./context/autenticacion/authState";
 import tokenAuth from "./config/token";
+import RutaPrivada from "./context/rutas/RutaPrivada";
 
 // Revisar si tenemos un token.
 const token = localStorage.getItem('token');
@@ -31,7 +32,7 @@ function App() {
               <Routes>
                 <Route exact path='/' element={<Login />} />
                 <Route exact path='/nueva-cuenta' element={<NuevaCuenta />} />
-                <Route exact path='/proyectos' element={<Proyectos />} />
+                <RutaPrivada exact path='/proyectos' element={<Proyectos />} />
               </Routes>
             </Router>
           </AuthState>
